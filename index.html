@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+      html {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      }
+      body {
+        max-width: 50em;
+        margin: 0 auto;
+        padding: 0.67em;
+      }
+      fieldset {
+        margin: 1.5em 0;
+      }
+      .question {
+        border: none;
+      }
+      .answer-group {
+        display: flex;
+        justify-content: space-around;
+      }
+      button[type="submit"] {
+        display: block;
+        margin: 1em auto;
+        font: inherit;
+        border: 1px solid currentColor;
+        border-radius: 0;
+        background: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="https://unpkg.com/preact@10.4.7/dist/preact.min.js"></script>
+    <script src="https://unpkg.com/preact@10.4.7/hooks/dist/hooks.umd.js"></script>
+    <script>
+      // pas hier de data aan:
+      const teksten = {
+        titel: "De leuke quiz",
+        opslaan: "bekijk je resultaat",
+        resultaten: "Resultaten",
+        resultaten_uitleg: "bla bla, vergeet je antwoorden niet door te sturen",
+        download: "sla de resultaten op",
+        opnieuw: "doe de quiz opnieuw",
+        opnieuw_bevestiging:
+          "Ben je zeker dat je opnieuw wil beginnen? Als je de antwoorden niet gedownload hebt kan je ze niet opnieuw zien.",
+      };
+
+      const groepen = [
+        {
+          naam: "werkgewilligheid",
+          uitleg: "bla bla deze categorie is voor iets",
+          vragen: [
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ei",
+            "Impor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
+          ],
+          antwoorden: [
+            "lage score - Impor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
+            "middel score - Impor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
+            "hoge score - Impor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
+          ],
+        },
+        {
+          naam: "gevoelens",
+          uitleg: "bla bla deze categorie is voor iets anders",
+          vragen: [
+            "lorem ipsum?",
+            "dolor sit amet, consectetur adipiscing elit",
+          ],
+          antwoorden: [
+            "score 0 - Impor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
+            "score 1 - Impor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
+            "score 2 - Impor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
+            "score 3 - Impor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
+          ],
+        },
+        {
+          naam: "boosheid",
+          uitleg: "bla bla deze categorie is voor boos",
+          vragen: [
+            "ben je soms boos?",
+            "hou je van vechtsporten?",
+            "wat denk je van xyz",
+          ],
+          antwoorden: [
+            "laag - Impor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
+            "hoog - Impor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
+          ],
+        },
+      ];
+      const opties = ["nooit", "bijna nooit", "soms", "altijd"];
+      // einde aanpasbaar deel hier
+
+      const { h, render, Fragment } = preact;
+      const { useState, useEffect } = preactHooks;
+
+      function updateTitle(title) {
+        document.querySelector("h1").innerText = title;
+      }
+
+      function Form() {
+        return [
+          h("label", null, [
+            "naam: ",
+            h("input", { name: "naam", required: true, type: "text" }),
+          ]),
+          groepen.map((group, groupIndex) =>
+            h("fieldset", null, [
+              h("legend", null, group.naam),
+              h("p", null, group.uitleg),
+              group.vragen.map((question, questionIndex) => [
+                h(
+                  "fieldset",
+                  { class: "question" },
+                  h("legend", null, question),
+                  h(
+                    "div",
+                    { class: "answer-group" },
+                    opties.map((option, oi) =>
+                      h("label", null, [
+                        h("input", {
+                          type: "radio",
+                          name: [groupIndex, questionIndex].join("."),
+                          required: true,
+                          value: oi,
+                        }),
+                        " " + option,
+                      ])
+                    )
+                  )
+                ),
+              ]),
+            ])
+          ),
+        ];
+      }
+
+      function csv(arr) {
+        return (
+          "data:text/csv;charset=utf-8," +
+          encodeURIComponent(arr.map((i) => i.join(",")).join("\n"))
+        );
+      }
+
+      function Results({ name, res, groupScores }) {
+        const results = [["categorie", "vraag", "antwoord"], ...res];
+        const xs = groepen.map((group, i) => {
+          const uitleg = Math.round(
+            (groupScores[i] * (group.antwoorden.length - 1)) /
+              (group.vragen.length * (opties.length - 1))
+          );
+
+          return group.antwoorden[uitleg];
+        });
+
+        return [
+          h("h1", null, teksten.resultaten),
+          h("p", null, teksten.resultaten_uitleg),
+          h("p", null, "naam: " + name),
+          xs.map((antwoord) => h("p", null, antwoord)),
+          h(
+            "a",
+            { download: "resultaten-" + name + ".csv", href: csv(results) },
+            teksten.download
+          ),
+          h(Fragment, null, " "),
+          h(
+            "a",
+            {
+              href: location.pathname,
+              onClick(e) {
+                if (!confirm(teksten.opnieuw_bevestiging)) {
+                  e.preventDefault();
+                }
+              },
+            },
+            teksten.opnieuw
+          ),
+        ];
+      }
+
+      function App() {
+        const [state, setState] = useState();
+
+        useEffect(() => {
+          document.title = teksten.titel;
+        }, []);
+
+        if (location.search) {
+          const searchParams = new URLSearchParams(location.search);
+          const res = Array.from(searchParams)
+            .filter(([q]) => q !== "naam")
+            .map(([q, a]) => [...q.split("."), a]);
+
+          const name = searchParams.get("naam");
+
+          const groupScores = res.reduce((acc, [group, _question, answer]) => {
+            acc[group] = (acc[group] || 0) + Number(answer);
+            return acc;
+          }, []);
+          return h(Results, { name, res, groupScores });
+        }
+
+        return [
+          h("h1", null, teksten.titel),
+          h(
+            "form",
+            {
+              onSubmit(e) {
+                // e.preventDefault();
+                console.log(e);
+              },
+            },
+            [h(Form), h("button", { type: "submit" }, teksten.opslaan)]
+          ),
+        ];
+
+        return;
+      }
+
+      render(h(App, { groepen, opties }), document.getElementById("app"));
+    </script>
+  </body>
+</html>
