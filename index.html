@@ -484,7 +484,16 @@
         },
       };
 
-      function Step({ hidden, onHide, children, progress, max }) {
+      function Step({
+        hidden,
+        onHide,
+        child,
+        childProps,
+        childState,
+        onChildStateChange,
+        progress,
+        max,
+      }) {
         return h(
           !hidden ? "form" : "div",
           {
@@ -496,7 +505,11 @@
             },
           },
           [
-            children,
+            h(child, {
+              ...childProps,
+              value: childState,
+              onChange: onChildStateChange,
+            }),
             progress && progress < max
               ? h("progress", { value: progress, min: 0, max: 8 })
               : null,
@@ -505,8 +518,7 @@
         );
       }
 
-      function PersistedStep({ groupIndex }) {
-        const [values, setValues] = useState({});
+      function PersistedStep({ groupIndex, value, onChange }) {
         const group = groepen[groupIndex];
 
         return h(
@@ -535,11 +547,9 @@
                         name: [groupIndex, questionIndex].join("."),
                         required: true,
                         value: oi,
-                        checked: values[questionIndex] === oi,
+                        checked: value[questionIndex] === oi,
                         onChange(e) {
-                          setValues((v) => {
-                            return { ...v, [questionIndex]: oi };
-                          });
+                          onChange({ ...value, [questionIndex]: oi });
                         },
                       }),
                       " " + option,
@@ -552,9 +562,7 @@
         );
       }
 
-      function Intro() {
-        const [name, setName] = useState(undefined);
-        console.log("intro renders", name);
+      function Intro({ value, onChange }) {
         return [
           h("p", null, teksten.subtitel),
           h("p", null, teksten.intro),
@@ -564,9 +572,9 @@
               name: "naam",
               required: true,
               type: "text",
-              value: name,
+              value: value,
               onInput(e) {
-                setName(e.target.value);
+                onChange(e.target.value);
               },
             }),
           ]),
@@ -575,20 +583,32 @@
 
       function Form() {
         const [index, setIndex] = useState(0);
-        console.log(index);
+        const [childState, childStateSetter] = useState([
+          "",
+          ...groepen.map((g) => ({})),
+        ]);
+
+        function setChildState(newState, index) {
+          return childStateSetter((oldState) => [
+            ...oldState.slice(0, index),
+            newState,
+            ...oldState.slice(index + 1, oldState.length),
+          ]);
+        }
 
         return ["first", ...groepen, "last"].map((group, groupIndex, arr) => {
           if (group === "first") {
-            return h(
-              Step,
-              {
-                hidden: groupIndex !== index,
-                onHide() {
-                  setIndex((i) => i + 1);
-                },
+            return h(Step, {
+              hidden: groupIndex !== index,
+              onHide() {
+                setIndex((i) => i + 1);
               },
-              h(Intro)
-            );
+              child: Intro,
+              onChildStateChange(newState) {
+                setChildState(newState, groupIndex);
+              },
+              childState: childState[groupIndex],
+            });
           }
 
           if (group === "last") {
@@ -609,20 +629,20 @@
             );
           }
 
-          return h(
-            Step,
-            {
-              hidden: groupIndex !== index,
-              onHide() {
-                setIndex((i) => 1 + i);
-              },
-              progress: groupIndex,
-              max: arr.length,
+          return h(Step, {
+            hidden: groupIndex !== index,
+            onHide() {
+              setIndex((i) => 1 + i);
             },
-            h(PersistedStep, {
-              groupIndex: groupIndex - 1,
-            })
-          );
+            progress: groupIndex,
+            max: arr.length,
+            childProps: { groupIndex: groupIndex - 1 },
+            child: PersistedStep,
+            onChildStateChange(newState) {
+              setChildState(newState, groupIndex);
+            },
+            childState: childState[groupIndex],
+          });
         });
       }
 
