@@ -9,6 +9,9 @@
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
           Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
       }
+      * {
+        box-sizing: border-box;
+      }
       body {
         max-width: 50em;
         margin: 0 auto;
@@ -16,21 +19,55 @@
       }
       fieldset {
         margin: 1.5em 0;
+        position: relative;
+        border: 0.5em solid var(--color);
       }
       .question {
         border: none;
       }
       .answer-group {
-        display: flex;
-        justify-content: space-around;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
       }
+      progress,
       button[type="submit"] {
         display: block;
+        margin: auto;
+      }
+      button[type="submit"] {
         margin: 1em auto;
         font: inherit;
         border: 1px solid currentColor;
         border-radius: 0;
         background: none;
+      }
+      .image svg {
+        height: 2em;
+        width: 2em;
+        background: var(--color);
+        padding: 0.2em;
+        border-radius: 100%;
+        position: absolute;
+        top: -1.2em;
+        left: -1.2em;
+      }
+      .visuallyhidden {
+        clip: rect(0 0 0 0);
+        clip-path: inset(50%);
+        height: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
+      }
+      td,
+      th {
+        padding: 0.5em;
+      }
+      @media print {
+        .download {
+          display: none;
+        }
       }
     </style>
   </head>
@@ -41,103 +78,482 @@
     <script>
       // pas hier de data aan:
       const teksten = {
-        titel: "De leuke quiz",
+        titel: "Wie ben ik?",
+        subtitel: "Ontdek jezelf in 40 vragen",
+        intro:
+          "Impor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Impor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Impor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
+        volgende: "volgende stap",
         opslaan: "bekijk je resultaat",
         resultaten: "Resultaten",
         resultaten_uitleg: "bla bla, vergeet je antwoorden niet door te sturen",
-        download: "sla de resultaten op",
-        opnieuw: "doe de quiz opnieuw",
-        opnieuw_bevestiging:
-          "Ben je zeker dat je opnieuw wil beginnen? Als je de antwoorden niet gedownload hebt kan je ze niet opnieuw zien.",
+        resultaten_uitleg_leerkracht: "deze resultaten willen x y z zeggen",
+        download: "geavanceerd: sla de resultaten op als csv",
       };
 
       const groepen = [
         {
-          naam: "werkgewilligheid",
-          uitleg: "bla bla deze categorie is voor iets",
+          naam: "Persoonlijke ontwikkeling",
+          uitleg:
+            "Hoe leer ik dingen? Leren doe je zowel op als buiten de school, van volwassenen of andere kinderen.",
           vragen: [
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ei",
-            "Impor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
+            {
+              vraag: "Ik toon aan anderen waar ik goed in ben.",
+              opties: ["nooit", "bijna nooit", "soms", "altijd"],
+            },
+            {
+              vraag:
+                "Ik kan dingen zelf uitproberen zonder dat iemand mij meteen komt helpen. Bv. veters strikken, leren fietsen, informatie opzoeken,…",
+              opties: ["nooit", "bijna nooit", "soms", "altijd"],
+            },
+            {
+              vraag: "Ik vind de lessen op school te makkelijk of te moeilijk.",
+              opties: ["altijd", "soms", "bijna nooit", "nooit"],
+            },
+            {
+              vraag:
+                "Ik werk graag tot iets helemaal klaar is, ook al duurt het wat langer. Ik kan ergens lang mee bezig zijn. Bv. een film helemaal uitkijken, een hoofdstuk uit een boek lezen, een bouwsel maken, een werk voor school afwerken voor ik aan iets anders begin, …",
+              opties: ["nooit", "bijna nooit", "soms", "altijd"],
+            },
+            {
+              vraag:
+                "Ik krijg voldoende tijd om mijn huiswerk te maken, een toets af te werken, mij aan en uit te kleden, klusjes uit te voeren,…?",
+              opties: ["nooit", "bijna nooit", "soms", "altijd"],
+            },
           ],
           antwoorden: [
-            "lage score - Impor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
-            "middel score - Impor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
-            "hoge score - Impor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
+            "Je vindt het leuk om uitgedaagd te worden en leert graag nieuwe dingen, zowel in de school als daarbuiten. Je bent nieuwsgierig en hongerig naar nieuwe dingen.",
+            "Je leert graag iets nieuw wanneer je daar de nodige tijd en coaching bij krijgt. Wanneer mensen in jou geloven gaat dat nog beter. ",
+            "Nieuwe dingen leren doe je liefst met ondersteuning en coaching. Je krijgt graag opdrachten op maat die je uitdagen.  Voor jou is het heel belangrijk dat mensen zien wat je kan en in je geloven.",
           ],
         },
         {
-          naam: "gevoelens",
-          uitleg: "bla bla deze categorie is voor iets anders",
+          naam: "Zelfbepaling",
+          uitleg:
+            "Hoe leer ik dingen? Leren doe je zowel op als buiten de school, van volwassenen of andere kinderen.",
           vragen: [
-            "lorem ipsum?",
-            "dolor sit amet, consectetur adipiscing elit",
+            {
+              vraag: "Ik toon aan anderen waar ik goed in ben.",
+              opties: ["nooit", "bijna nooit", "soms", "altijd"],
+            },
+            {
+              vraag:
+                "Ik kan dingen zelf uitproberen zonder dat iemand mij meteen komt helpen. Bv. veters strikken, leren fietsen, informatie opzoeken,…",
+              opties: ["nooit", "bijna nooit", "soms", "altijd"],
+            },
+            {
+              vraag: "Ik vind de lessen op school te makkelijk of te moeilijk.",
+              opties: ["altijd", "soms", "bijna nooit", "nooit"],
+            },
+            {
+              vraag:
+                "Ik werk graag tot iets helemaal klaar is, ook al duurt het wat langer. Ik kan ergens lang mee bezig zijn. Bv. een film helemaal uitkijken, een hoofdstuk uit een boek lezen, een bouwsel maken, een werk voor school afwerken voor ik aan iets anders begin, …",
+              opties: ["nooit", "bijna nooit", "soms", "altijd"],
+            },
+            {
+              vraag:
+                "Ik krijg voldoende tijd om mijn huiswerk te maken, een toets af te werken, mij aan en uit te kleden, klusjes uit te voeren,…?",
+              opties: ["nooit", "bijna nooit", "soms", "altijd"],
+            },
           ],
           antwoorden: [
-            "score 0 - Impor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
-            "score 1 - Impor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
-            "score 2 - Impor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
-            "score 3 - Impor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
+            "Je vindt het leuk om uitgedaagd te worden en leert graag nieuwe dingen, zowel in de school als daarbuiten. Je bent nieuwsgierig en hongerig naar nieuwe dingen.",
+            "Je leert graag iets nieuw wanneer je daar de nodige tijd en coaching bij krijgt. Wanneer mensen in jou geloven gaat dat nog beter. ",
+            "Nieuwe dingen leren doe je liefst met ondersteuning en coaching. Je krijgt graag opdrachten op maat die je uitdagen.  Voor jou is het heel belangrijk dat mensen zien wat je kan en in je geloven.",
           ],
         },
         {
-          naam: "boosheid",
-          uitleg: "bla bla deze categorie is voor boos",
+          naam: "Sociale inclusie",
+          uitleg:
+            "Hoe leer ik dingen? Leren doe je zowel op als buiten de school, van volwassenen of andere kinderen.",
           vragen: [
-            "ben je soms boos?",
-            "hou je van vechtsporten?",
-            "wat denk je van xyz",
+            {
+              vraag: "Ik toon aan anderen waar ik goed in ben.",
+              opties: ["nooit", "bijna nooit", "soms", "altijd"],
+            },
+            {
+              vraag:
+                "Ik kan dingen zelf uitproberen zonder dat iemand mij meteen komt helpen. Bv. veters strikken, leren fietsen, informatie opzoeken,…",
+              opties: ["nooit", "bijna nooit", "soms", "altijd"],
+            },
+            {
+              vraag: "Ik vind de lessen op school te makkelijk of te moeilijk.",
+              opties: ["altijd", "soms", "bijna nooit", "nooit"],
+            },
+            {
+              vraag:
+                "Ik werk graag tot iets helemaal klaar is, ook al duurt het wat langer. Ik kan ergens lang mee bezig zijn. Bv. een film helemaal uitkijken, een hoofdstuk uit een boek lezen, een bouwsel maken, een werk voor school afwerken voor ik aan iets anders begin, …",
+              opties: ["nooit", "bijna nooit", "soms", "altijd"],
+            },
+            {
+              vraag:
+                "Ik krijg voldoende tijd om mijn huiswerk te maken, een toets af te werken, mij aan en uit te kleden, klusjes uit te voeren,…?",
+              opties: ["nooit", "bijna nooit", "soms", "altijd"],
+            },
           ],
           antwoorden: [
-            "laag - Impor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
-            "hoog - Impor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
+            "Je vindt het leuk om uitgedaagd te worden en leert graag nieuwe dingen, zowel in de school als daarbuiten. Je bent nieuwsgierig en hongerig naar nieuwe dingen.",
+            "Je leert graag iets nieuw wanneer je daar de nodige tijd en coaching bij krijgt. Wanneer mensen in jou geloven gaat dat nog beter. ",
+            "Nieuwe dingen leren doe je liefst met ondersteuning en coaching. Je krijgt graag opdrachten op maat die je uitdagen.  Voor jou is het heel belangrijk dat mensen zien wat je kan en in je geloven.",
+          ],
+        },
+        {
+          naam: "Interpersoonlijke relaties",
+          uitleg:
+            "Hoe leer ik dingen? Leren doe je zowel op als buiten de school, van volwassenen of andere kinderen.",
+          vragen: [
+            {
+              vraag: "Ik toon aan anderen waar ik goed in ben.",
+              opties: ["nooit", "bijna nooit", "soms", "altijd"],
+            },
+            {
+              vraag:
+                "Ik kan dingen zelf uitproberen zonder dat iemand mij meteen komt helpen. Bv. veters strikken, leren fietsen, informatie opzoeken,…",
+              opties: ["nooit", "bijna nooit", "soms", "altijd"],
+            },
+            {
+              vraag: "Ik vind de lessen op school te makkelijk of te moeilijk.",
+              opties: ["altijd", "soms", "bijna nooit", "nooit"],
+            },
+            {
+              vraag:
+                "Ik werk graag tot iets helemaal klaar is, ook al duurt het wat langer. Ik kan ergens lang mee bezig zijn. Bv. een film helemaal uitkijken, een hoofdstuk uit een boek lezen, een bouwsel maken, een werk voor school afwerken voor ik aan iets anders begin, …",
+              opties: ["nooit", "bijna nooit", "soms", "altijd"],
+            },
+            {
+              vraag:
+                "Ik krijg voldoende tijd om mijn huiswerk te maken, een toets af te werken, mij aan en uit te kleden, klusjes uit te voeren,…?",
+              opties: ["nooit", "bijna nooit", "soms", "altijd"],
+            },
+          ],
+          antwoorden: [
+            "Je vindt het leuk om uitgedaagd te worden en leert graag nieuwe dingen, zowel in de school als daarbuiten. Je bent nieuwsgierig en hongerig naar nieuwe dingen.",
+            "Je leert graag iets nieuw wanneer je daar de nodige tijd en coaching bij krijgt. Wanneer mensen in jou geloven gaat dat nog beter. ",
+            "Nieuwe dingen leren doe je liefst met ondersteuning en coaching. Je krijgt graag opdrachten op maat die je uitdagen.  Voor jou is het heel belangrijk dat mensen zien wat je kan en in je geloven.",
+          ],
+        },
+        {
+          naam: "Rechten",
+          uitleg:
+            "Hoe leer ik dingen? Leren doe je zowel op als buiten de school, van volwassenen of andere kinderen.",
+          vragen: [
+            {
+              vraag: "Ik toon aan anderen waar ik goed in ben.",
+              opties: ["nooit", "bijna nooit", "soms", "altijd"],
+            },
+            {
+              vraag:
+                "Ik kan dingen zelf uitproberen zonder dat iemand mij meteen komt helpen. Bv. veters strikken, leren fietsen, informatie opzoeken,…",
+              opties: ["nooit", "bijna nooit", "soms", "altijd"],
+            },
+            {
+              vraag: "Ik vind de lessen op school te makkelijk of te moeilijk.",
+              opties: ["altijd", "soms", "bijna nooit", "nooit"],
+            },
+            {
+              vraag:
+                "Ik werk graag tot iets helemaal klaar is, ook al duurt het wat langer. Ik kan ergens lang mee bezig zijn. Bv. een film helemaal uitkijken, een hoofdstuk uit een boek lezen, een bouwsel maken, een werk voor school afwerken voor ik aan iets anders begin, …",
+              opties: ["nooit", "bijna nooit", "soms", "altijd"],
+            },
+            {
+              vraag:
+                "Ik krijg voldoende tijd om mijn huiswerk te maken, een toets af te werken, mij aan en uit te kleden, klusjes uit te voeren,…?",
+              opties: ["nooit", "bijna nooit", "soms", "altijd"],
+            },
+          ],
+          antwoorden: [
+            "Je vindt het leuk om uitgedaagd te worden en leert graag nieuwe dingen, zowel in de school als daarbuiten. Je bent nieuwsgierig en hongerig naar nieuwe dingen.",
+            "Je leert graag iets nieuw wanneer je daar de nodige tijd en coaching bij krijgt. Wanneer mensen in jou geloven gaat dat nog beter. ",
+            "Nieuwe dingen leren doe je liefst met ondersteuning en coaching. Je krijgt graag opdrachten op maat die je uitdagen.  Voor jou is het heel belangrijk dat mensen zien wat je kan en in je geloven.",
+          ],
+        },
+        {
+          naam: "Fysiek welbevinden",
+          uitleg:
+            "Hoe leer ik dingen? Leren doe je zowel op als buiten de school, van volwassenen of andere kinderen.",
+          vragen: [
+            {
+              vraag: "Ik toon aan anderen waar ik goed in ben.",
+              opties: ["nooit", "bijna nooit", "soms", "altijd"],
+            },
+            {
+              vraag:
+                "Ik kan dingen zelf uitproberen zonder dat iemand mij meteen komt helpen. Bv. veters strikken, leren fietsen, informatie opzoeken,…",
+              opties: ["nooit", "bijna nooit", "soms", "altijd"],
+            },
+            {
+              vraag: "Ik vind de lessen op school te makkelijk of te moeilijk.",
+              opties: ["altijd", "soms", "bijna nooit", "nooit"],
+            },
+            {
+              vraag:
+                "Ik werk graag tot iets helemaal klaar is, ook al duurt het wat langer. Ik kan ergens lang mee bezig zijn. Bv. een film helemaal uitkijken, een hoofdstuk uit een boek lezen, een bouwsel maken, een werk voor school afwerken voor ik aan iets anders begin, …",
+              opties: ["nooit", "bijna nooit", "soms", "altijd"],
+            },
+            {
+              vraag:
+                "Ik krijg voldoende tijd om mijn huiswerk te maken, een toets af te werken, mij aan en uit te kleden, klusjes uit te voeren,…?",
+              opties: ["nooit", "bijna nooit", "soms", "altijd"],
+            },
+          ],
+          antwoorden: [
+            "Je vindt het leuk om uitgedaagd te worden en leert graag nieuwe dingen, zowel in de school als daarbuiten. Je bent nieuwsgierig en hongerig naar nieuwe dingen.",
+            "Je leert graag iets nieuw wanneer je daar de nodige tijd en coaching bij krijgt. Wanneer mensen in jou geloven gaat dat nog beter. ",
+            "Nieuwe dingen leren doe je liefst met ondersteuning en coaching. Je krijgt graag opdrachten op maat die je uitdagen.  Voor jou is het heel belangrijk dat mensen zien wat je kan en in je geloven.",
+          ],
+        },
+        {
+          naam: "Materieel welbevinden",
+          uitleg:
+            "Hoe leer ik dingen? Leren doe je zowel op als buiten de school, van volwassenen of andere kinderen.",
+          vragen: [
+            {
+              vraag: "Ik toon aan anderen waar ik goed in ben.",
+              opties: ["nooit", "bijna nooit", "soms", "altijd"],
+            },
+            {
+              vraag:
+                "Ik kan dingen zelf uitproberen zonder dat iemand mij meteen komt helpen. Bv. veters strikken, leren fietsen, informatie opzoeken,…",
+              opties: ["nooit", "bijna nooit", "soms", "altijd"],
+            },
+            {
+              vraag: "Ik vind de lessen op school te makkelijk of te moeilijk.",
+              opties: ["altijd", "soms", "bijna nooit", "nooit"],
+            },
+            {
+              vraag:
+                "Ik werk graag tot iets helemaal klaar is, ook al duurt het wat langer. Ik kan ergens lang mee bezig zijn. Bv. een film helemaal uitkijken, een hoofdstuk uit een boek lezen, een bouwsel maken, een werk voor school afwerken voor ik aan iets anders begin, …",
+              opties: ["nooit", "bijna nooit", "soms", "altijd"],
+            },
+            {
+              vraag:
+                "Ik krijg voldoende tijd om mijn huiswerk te maken, een toets af te werken, mij aan en uit te kleden, klusjes uit te voeren,…?",
+              opties: ["nooit", "bijna nooit", "soms", "altijd"],
+            },
+          ],
+          antwoorden: [
+            "Je vindt het leuk om uitgedaagd te worden en leert graag nieuwe dingen, zowel in de school als daarbuiten. Je bent nieuwsgierig en hongerig naar nieuwe dingen.",
+            "Je leert graag iets nieuw wanneer je daar de nodige tijd en coaching bij krijgt. Wanneer mensen in jou geloven gaat dat nog beter. ",
+            "Nieuwe dingen leren doe je liefst met ondersteuning en coaching. Je krijgt graag opdrachten op maat die je uitdagen.  Voor jou is het heel belangrijk dat mensen zien wat je kan en in je geloven.",
+          ],
+        },
+        {
+          naam: "Emotioneel welbevinden",
+          uitleg:
+            "Hoe leer ik dingen? Leren doe je zowel op als buiten de school, van volwassenen of andere kinderen.",
+          vragen: [
+            {
+              vraag: "Ik toon aan anderen waar ik goed in ben.",
+              opties: ["nooit", "bijna nooit", "soms", "altijd"],
+            },
+            {
+              vraag:
+                "Ik kan dingen zelf uitproberen zonder dat iemand mij meteen komt helpen. Bv. veters strikken, leren fietsen, informatie opzoeken,…",
+              opties: ["nooit", "bijna nooit", "soms", "altijd"],
+            },
+            {
+              vraag: "Ik vind de lessen op school te makkelijk of te moeilijk.",
+              opties: ["altijd", "soms", "bijna nooit", "nooit"],
+            },
+            {
+              vraag:
+                "Ik werk graag tot iets helemaal klaar is, ook al duurt het wat langer. Ik kan ergens lang mee bezig zijn. Bv. een film helemaal uitkijken, een hoofdstuk uit een boek lezen, een bouwsel maken, een werk voor school afwerken voor ik aan iets anders begin, …",
+              opties: ["nooit", "bijna nooit", "soms", "altijd"],
+            },
+            {
+              vraag:
+                "Ik krijg voldoende tijd om mijn huiswerk te maken, een toets af te werken, mij aan en uit te kleden, klusjes uit te voeren,…?",
+              opties: ["nooit", "bijna nooit", "soms", "altijd"],
+            },
+          ],
+          antwoorden: [
+            "Je vindt het leuk om uitgedaagd te worden en leert graag nieuwe dingen, zowel in de school als daarbuiten. Je bent nieuwsgierig en hongerig naar nieuwe dingen.",
+            "Je leert graag iets nieuw wanneer je daar de nodige tijd en coaching bij krijgt. Wanneer mensen in jou geloven gaat dat nog beter. ",
+            "Nieuwe dingen leren doe je liefst met ondersteuning en coaching. Je krijgt graag opdrachten op maat die je uitdagen.  Voor jou is het heel belangrijk dat mensen zien wat je kan en in je geloven.",
           ],
         },
       ];
-      const opties = ["nooit", "bijna nooit", "soms", "altijd"];
       // einde aanpasbaar deel hier
-
       const { h, render, Fragment } = preact;
-      const { useState, useEffect } = preactHooks;
+      const { useState, useEffect, useReducer, useLayoutEffect } = preactHooks;
 
-      function updateTitle(title) {
-        document.querySelector("h1").innerText = title;
+      const branding = {
+        "Persoonlijke ontwikkeling": {
+          img:
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0.716 0 30.569 31.999"><path d="M25.34 11.288c-.459 0-.906.058-1.336.156.209-.762.33-1.561.33-2.389 0-5-4.055-9.055-9.057-9.055S6.223 4.056 6.223 9.057c0 .774.107 1.522.291 2.24a5.942 5.942 0 00.148 11.884 5.943 5.943 0 005.925-5.476 9.06 9.06 0 002.691.406 8.988 8.988 0 004.119-.999c0 .04-.006.08-.006.122a5.947 5.947 0 0011.894 0 5.943 5.943 0 00-5.945-5.946zm-9.79 7.362s.438-.006.397 1.332l.002 1.276s.198 1.815 1.154 1.098l1.914-1.476s.635-.508.795-.292c0 0 .279.312-.875 1.499l-2.113 2.541s-.558.398-.479 2.071l.277 5.3h-2.388l.318-4.104s.04-1.153-.318-1.551l-2.71-3.82s-.528-.824-.169-1.062c0 0 .329-.063 1.137.626l1.116 1.227s.497.446.886.328c0 0 .537-.296.478-1.12l.06-2.828c-.002-.001-.041-1.104.518-1.045z" fill="#fff"/></svg>',
+          color: "rgb(148, 180, 52)",
+        },
+        Zelfbepaling: {
+          img:
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="2.611 0.053 26.777 31.894"><path d="M15.051 20.475v-4.907l-12.44 8.545 12.44 7.834v-4.116c16.561-2.926 13.125-16.615 13.125-16.615-4.743 10.523-13.125 9.259-13.125 9.259zM3.525 18.077c.021 1.622.293 2.705.293 2.705 4.747-10.523 13.126-9.257 13.126-9.257v4.906l12.444-8.542L16.944.053v4.116C5.159 6.251 3.502 13.781 3.525 17.951c-.067.127 0 .126 0 .126z" fill="#fff"/></svg>',
+          color: "rgb(255, 153, 0)",
+        },
+        "Sociale inclusie": {
+          img:
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0.139 0 31.722 32"><path d="M16 0C7.24 0 .139 7.164.139 16S7.24 32 16 32c8.758 0 15.861-7.164 15.861-16S24.761 0 16 0zm.167 29.337c-7.438 0-13.472-5.987-13.472-13.378 0-4.316 2.067-8.144 5.262-10.59-.539 2.688 1.472 6.798 5.746 7.798 4.27 1 2.436.167 1.77-1.167-.667-1.333-.067-2.333.967-2.667 1.035-.333.772.586 2.307-1.333.392-4-2.943-.055-3.276-1.721 1.444-1.675 1.333-2.894.634-3.694.021 0 .04-.003.061-.003 4.579 0 8.617 2.274 11.051 5.742-.695.612-1.875 2.052-.468 3.955 1.836 2.483 2.783 4.833 2.751 5.471-.007.046-.016.09-.021.134-.176.656-1.844 3.319-.843 3.117a13.46 13.46 0 01-12.469 8.336zm6.16-15.269c-.171-.667-.403-1.401-6.544 1.32-.25.109-1.406.833-1.805 1.333-.398.5-.57 1.557 0 2 .576.445-.028 2.557 1.51 2.944 1.542.39 3.086.612 3.143 1.834s-.143 4.056-.885 4.333c1 .555 3.434-2.389 4.289-3.943.859-1.557 1.145-3.779 1.086-4.334-.057-.556.341-1.722.514-3.222.172-1.5-1.139-1.599-1.308-2.265z" fill="#fff"/></svg>',
+          color: "rgb(148, 180, 52)",
+        },
+        "Interpersoonlijke relaties": {
+          img:
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0.129 6.973 31.742 18.055"><path d="M17.593 15.832l-.157-.851c.649-.434 1.285-1.253 1.574-2.785.525-.873 0-1.408 0-1.408V9.475c-.008-.036-.019-.063-.026-.098a4.892 4.892 0 00-.22-1.178c-.445-.454-1.159-1.154-2.9-1.223-1.209-.042-2.42.364-2.929.734-.238.353-.388.786-.481 1.228a3.358 3.358 0 00-.144.466v1.312s-.526.535 0 1.411c.279 1.482.886 2.295 1.515 2.742l-.085.918a94.99 94.99 0 00-2.773 1.428c-1.36-.669-2.84-1.178-2.84-1.178l-.137-.755c.491-.333.977-.957 1.196-2.125.161-.266.188-.683.167-.983.047-.389.136-1.454-.147-2.302-.363-.369-.945-.938-2.36-.996-.986-.034-1.971.295-2.387.599-.483.716-.529 1.833-.5 2.463-.068.305-.097.808.117 1.165.214 1.132.678 1.75 1.157 2.089l-.079.846s-3.335 1.494-4.072 2.161c-.686.618-1.27 2.442-.759 3.217 1.687.824 3.826 1.391 6.083 1.496-.223-1.161.438-2.981 1.199-3.668.263-.236.781-.555 1.391-.893-.275.179-.504.34-.648.469-.896.81-1.665 3.21-.994 4.221 4.607 2.255 11.789 3.052 17.57-.09.419-.775-.373-2.678-.815-3.438-1.019-1.474-4.731-3.316-6.516-3.681zm13.326 2.191c-.737-.667-4.072-2.162-4.072-2.162l-.079-.845c.479-.339.942-.957 1.156-2.089.214-.357.185-.861.118-1.166.027-.629-.02-1.746-.501-2.462-.415-.304-1.401-.633-2.387-.599-1.415.058-1.997.627-2.358.995-.284.847-.194 1.913-.148 2.302-.021.3.007.717.167.983.22 1.168.705 1.792 1.197 2.125l-.137.755s-1.575.541-2.967 1.241c1.314.638 2.943 1.477 3.487 1.966.763.687 1.422 2.508 1.198 3.668 2.258-.105 4.397-.673 6.083-1.497.512-.772-.072-2.597-.757-3.215z" fill="#fff"/></svg>',
+          color: "rgb(195, 4, 83)",
+        },
+        Rechten: {
+          img:
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0.815 0.08 30.372 31.839"><path d="M31.186 3.65H17.469V.08H14.6v3.57H.884v4.093H5.01l-1.992 3.674L.85 15.265H.815v.385c0 2.379 1.922 4.305 4.268 4.305 2.379 0 4.269-1.926 4.269-4.305v-.385h-.035l-2.171-3.848-1.99-3.674H14.6v19.522c-2.695.421-4.689 2.065-4.689 3.989 0 .21.035.455.071.665h12.104c.035-.21.07-.455.07-.665 0-1.924-1.994-3.568-4.688-3.989V7.743h9.303l-1.99 3.674-2.17 3.848c-.035.139-.035.245-.035.385 0 2.379 1.926 4.305 4.268 4.305a4.302 4.302 0 004.305-4.305c0-.14 0-.246-.035-.385l-2.168-3.848-2.027-3.674h4.268V3.65zM7.812 14.182H2.354l1.363-2.38 1.366-2.344 1.365 2.344 1.364 2.38zm21.762 0h-5.425l1.332-2.38 1.363-2.344 1.363 2.344 1.367 2.38z" fill="#fff"/></svg>',
+          color: "#3D9CD3",
+        },
+        "Fysiek welbevinden": {
+          img:
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0.05 0.05 31.91 31.9"><path d="M31.9 10.6l-4.1-4.1 1.4-1.4c.6-.6.6-1.6 0-2.2-.6-.6-1.6-.6-2.2 0l-1.4 1.4L21.5.2c-.2-.2-.5-.2-.6 0l-4.4 4.4c-.2.2-.2.5 0 .6l4.1 4.1L9.3 20.5l-4.1-4.1c-.2-.2-.5-.2-.6 0L.2 20.8c-.2.2-.2.5 0 .6l4.1 4.1-1.4 1.4c-.6.6-.6 1.6 0 2.2.6.6 1.6.6 2.2 0l1.4-1.4 4.1 4.1c.2.2.5.2.6 0l4.4-4.4c.2-.2.2-.5 0-.6l-4.1-4.1 11.1-11.1 4.1 4.1c.2.2.5.2.6 0l4.4-4.4c.3-.2.3-.5.2-.7z" fill="#FFF"/></svg>',
+          color: "#3D9CD3",
+        },
+        "Materieel welbevinden": {
+          img:
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0.153 2.673 31.694 26.653"><path fill="#fff" d="M.153 25.688V9.992c0-2.01 1.606-3.638 3.602-3.638h1.167v22.972H3.755c-1.995 0-3.602-1.628-3.602-3.638zM11.361 6.354h8.645V4.856a.725.725 0 00-.721-.728h-7.203a.724.724 0 00-.721.728v1.498zm-4.279 0h2.839V4.856c0-1.203.972-2.183 2.161-2.183h7.203c1.188 0 2.16.979 2.16 2.183v1.498h3.645v22.972H7.082V6.354zm21.163 22.972h-.994V6.354h.994c1.987 0 3.602 1.628 3.602 3.638v15.696c0 2.01-1.615 3.638-3.602 3.638z"/></svg>',
+          color: "#DC8C2C",
+        },
+        "Emotioneel welbevinden": {
+          img:
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0.029 3.168 31.941 25.663"><path d="M15.334 10.407S25.321-2.055 31.188 6.43c0 0 4.461 7.562-7.928 16.896l-7.927 5.505-9.212-9.455S-6.63 8.367 4.764 3.472c0 .001 7.71-2.52 10.57 6.935z" fill="#fff"/></svg>',
+          color: "#C30453",
+        },
+      };
+
+      function Step({ hidden, onHide, children, progress, max }) {
+        return h(
+          !hidden ? "form" : "div",
+          {
+            style: { display: !hidden ? "block" : "none" },
+            class: "group",
+            onSubmit(e) {
+              e.preventDefault();
+              onHide();
+            },
+          },
+          [
+            children,
+            progress && progress < max
+              ? h("progress", { value: progress, min: 0, max: 8 })
+              : null,
+            h("button", { type: "submit" }, teksten.volgende),
+          ]
+        );
+      }
+
+      function PersistedStep({ groupIndex }) {
+        const [values, setValues] = useState({});
+        const group = groepen[groupIndex];
+
+        return h(
+          "fieldset",
+          { style: { "--color": branding[group.naam].color } },
+          [
+            h("legend", { class: "visuallyhidden" }, group.naam),
+            h("div", {
+              class: "image",
+              dangerouslySetInnerHTML: {
+                __html: branding[group.naam].img,
+              },
+            }),
+            h("p", null, group.uitleg),
+            group.vragen.map(({ vraag, opties }, questionIndex) => [
+              h(
+                "fieldset",
+                { class: "question" },
+                h("legend", null, vraag),
+                h(
+                  "div",
+                  { class: "answer-group" },
+                  opties.map((option, oi) =>
+                    h("label", null, [
+                      h("input", {
+                        type: "radio",
+                        name: [groupIndex, questionIndex].join("."),
+                        required: true,
+                        value: oi,
+                        checked: values[questionIndex] === oi,
+                        onChange(e) {
+                          setValues((v) => {
+                            return { ...v, [questionIndex]: oi };
+                          });
+                        },
+                      }),
+                      " " + option,
+                    ])
+                  )
+                )
+              ),
+            ]),
+          ]
+        );
+      }
+
+      function Intro() {
+        const [name, setName] = useState(undefined);
+        return [
+          h("p", null, teksten.subtitel),
+          h("p", null, teksten.intro),
+          h("label", null, [
+            "naam: ",
+            h("input", {
+              name: "naam",
+              required: true,
+              type: "text",
+              value: name,
+              onInput(e) {
+                setName(e.target.value);
+              },
+            }),
+          ]),
+        ];
       }
 
       function Form() {
-        return [
-          h("label", null, [
-            "naam: ",
-            h("input", { name: "naam", required: true, type: "text" }),
-          ]),
-          groepen.map((group, groupIndex) =>
-            h("fieldset", null, [
-              h("legend", null, group.naam),
-              h("p", null, group.uitleg),
-              group.vragen.map((question, questionIndex) => [
-                h(
-                  "fieldset",
-                  { class: "question" },
-                  h("legend", null, question),
-                  h(
-                    "div",
-                    { class: "answer-group" },
-                    opties.map((option, oi) =>
-                      h("label", null, [
-                        h("input", {
-                          type: "radio",
-                          name: [groupIndex, questionIndex].join("."),
-                          required: true,
-                          value: oi,
-                        }),
-                        " " + option,
-                      ])
-                    )
-                  )
-                ),
-              ]),
-            ])
-          ),
-        ];
+        const [index, setIndex] = useState(0);
+        console.log(index)
+
+        return ["first", ...groepen, "last"].map((group, groupIndex, arr) => {
+          if (group === "first") {
+            return h(
+              Step,
+              {
+                key: groupIndex,
+                hidden: groupIndex !== index,
+                onHide() {
+                  setIndex((i) => i + 1);
+                },
+              },
+              h(Intro)
+            );
+          }
+          if (group === "last") {
+            return h(
+              "button",
+              {
+                key: groupIndex,
+                style: { display: groupIndex !== index ? "none" : "block" },
+                type: "submit",
+              },
+              teksten.opslaan
+            );
+          }
+          return h(
+            Step,
+            {
+              key: groupIndex,
+              hidden: groupIndex !== index,
+              onHide() {
+                setIndex((i) => 1 + i);
+              },
+              progress: groupIndex,
+              max: arr.length,
+            },
+            h(PersistedStep, {
+              key: "f" + groupIndex,
+              groupIndex: groupIndex - 1,
+            })
+          );
+        });
       }
 
       function csv(arr) {
@@ -147,39 +563,247 @@
         );
       }
 
-      function Results({ name, res, groupScores }) {
-        const results = [["categorie", "vraag", "antwoord"], ...res];
-        const xs = groepen.map((group, i) => {
-          const uitleg = Math.round(
-            (groupScores[i] * (group.antwoorden.length - 1)) /
-              (group.vragen.length * (opties.length - 1))
+      function Chart({ data, width, height, numLevels }) {
+        const radians = 2 * Math.PI;
+
+        const polyline = h("polyline", {
+          points: [...data, data[0]]
+            .map((d, i) =>
+              [
+                (width / 2) *
+                  (1 -
+                    (Math.max(d.value, 0) / d.max) *
+                      Math.sin((i * radians) / data.length)),
+
+                (height / 2) *
+                  (1 -
+                    (Math.max(d.value, 0) / d.max) *
+                      Math.cos((i * radians) / data.length)),
+              ].join(",")
+            )
+            .join(" "),
+          fill: "rgba(195, 4, 83, .3)",
+          stroke: "rgb(195, 4, 83)",
+        });
+
+        const radius = Math.min(width / 2, height / 2);
+
+        const levels = Array.from({ length: numLevels }, (_, level) => {
+          var levelFactor = radius * ((level + 1) / numLevels);
+
+          return data.map((_value, i) =>
+            h("line", {
+              x1: levelFactor * (1 - Math.sin((i * radians) / data.length)),
+              y1: levelFactor * (1 - Math.cos((i * radians) / data.length)),
+              x2:
+                levelFactor * (1 - Math.sin(((i + 1) * radians) / data.length)),
+              y2:
+                levelFactor * (1 - Math.cos(((i + 1) * radians) / data.length)),
+              transform:
+                "translate(" +
+                (width / 2 - levelFactor) +
+                ", " +
+                (height / 2 - levelFactor) +
+                ")",
+              stroke: "gray",
+              "stroke-width": ".5px",
+            })
+          );
+        });
+
+        const axis = data.map((_value, i) =>
+          h("line", {
+            x1: width / 2,
+            y1: height / 2,
+            x2: (width / 2) * (1 - Math.sin((i * radians) / data.length)),
+            y2: (height / 2) * (1 - Math.cos((i * radians) / data.length)),
+            stroke: "grey",
+            "stroke-width": ".5px",
+          })
+        );
+
+        const labels = data.map(({ label }, i) => {
+          return h(
+            "text",
+            {
+              "text-anchor": "middle",
+              x:
+                (width / 2) *
+                (1 - 1.35 * Math.sin((i * radians) / data.length)),
+              y:
+                (height / 2) *
+                (1 - 1.35 * Math.cos((i * radians) / data.length)),
+              "font-size": "5px",
+            },
+            label.split(" ").map((word, i, arr) =>
+              h(
+                "tspan",
+                {
+                  dx: i === 0 ? 0 : -2 * (arr[i - 1].length + 1.5),
+                  dy: i * 5.5,
+                },
+                word + (i == arr.length - 1 ? "" : " ")
+              )
+            )
+          );
+        });
+
+        return [
+          h(
+            "svg",
+            {
+              viewBox: [0, 0, 2 * width, 2 * height].join(" "),
+              style: { width: "30em", height: "30em" },
+            },
+            [
+              h(
+                "g",
+                {
+                  transform:
+                    "translate(" + 0.5 * width + ", " + 0.5 * height + ")",
+                },
+                levels,
+                axis,
+                labels,
+                polyline
+              ),
+            ]
+          ),
+        ];
+      }
+
+      function Results() {
+        const searchParams = new URLSearchParams(location.search);
+        const results = Array.from(searchParams)
+          .filter(([q]) => q !== "naam")
+          .map(([q, a]) => [...q.split("."), a]);
+
+        const name = searchParams.get("naam");
+
+        const groupScores = results.reduce(
+          (acc, [group, question, answer], i) => {
+            if (!acc[group]) {
+              acc[group] = {
+                label: groepen[group].naam,
+                value: 0,
+                max: 0,
+              };
+            }
+
+            acc[group] = {
+              ...acc[group],
+              value: acc[group].value + Number(answer),
+              max:
+                acc[group].max +
+                groepen[group].vragen[question].opties.length -
+                1,
+            };
+
+            return acc;
+          },
+          []
+        );
+
+        const antwoorden = groepen.map((group, i) => {
+          const index = Math.round(
+            (groupScores[i].value * (group.antwoorden.length - 1)) /
+              group.vragen.reduce((acc, { opties }) => acc + opties.length, 0)
           );
 
-          return group.antwoorden[uitleg];
+          return group.antwoorden[index];
         });
 
         return [
           h("h1", null, teksten.resultaten),
           h("p", null, teksten.resultaten_uitleg),
           h("p", null, "naam: " + name),
-          xs.map((antwoord) => h("p", null, antwoord)),
-          h(
-            "a",
-            { download: "resultaten-" + name + ".csv", href: csv(results) },
-            teksten.download
+          antwoorden.map((antwoord) => h("p", null, antwoord)),
+
+          // TODO: from here on printed
+          h("hr"),
+          h("p", null, "antwoorden voor: " + name),
+          h("p", null, teksten.resultaten_uitleg_leerkracht),
+          h(Chart, {
+            data: groupScores,
+            width: 100,
+            height: 100,
+            numLevels: 3,
+          }),
+          groepen.map((group, groupIndex) =>
+            h("section", null, [
+              h("h2", null, group.naam),
+              h("p", null, antwoorden[groupIndex]),
+              h(
+                "table",
+                { style: { borderSpacing: 0 } },
+                h(
+                  "thead",
+                  null,
+                  h(
+                    "tr",
+                    null,
+                    h("th", null, "vraag"),
+                    group.vragen[0].opties.map((_vraag, i) =>
+                      h("th", null, i + 1)
+                    )
+                  )
+                ),
+                h(
+                  "tbody",
+                  null,
+                  group.vragen.map(({ vraag, opties }, questionIndex) =>
+                    h(
+                      "tr",
+                      null,
+                      h(
+                        "td",
+                        {
+                          style: {
+                            borderTop: "1px solid lightgrey",
+                          },
+                        },
+                        vraag
+                      ),
+                      opties.map((option, optionIndex) => {
+                        const [, , chosenAnswer] = results.find(
+                          ([gi, qi]) => gi == groupIndex && qi == questionIndex
+                        );
+
+                        return h(
+                          "td",
+                          {
+                            style: {
+                              whiteSpace: "nowrap",
+                              borderLeft: "1px solid lightgrey",
+                              borderTop: "1px solid lightgrey",
+                              textAlign: "center",
+                              backgroundColor:
+                                chosenAnswer == optionIndex
+                                  ? "lightgrey"
+                                  : "transparent",
+                              textDecoration:
+                                chosenAnswer == optionIndex
+                                  ? "underline"
+                                  : "inherit",
+                            },
+                          },
+                          option
+                        );
+                      })
+                    )
+                  )
+                )
+              ),
+            ])
           ),
-          h(Fragment, null, " "),
           h(
             "a",
             {
-              href: location.pathname,
-              onClick(e) {
-                if (!confirm(teksten.opnieuw_bevestiging)) {
-                  e.preventDefault();
-                }
-              },
+              class: "download",
+              download: "resultaten-" + name + ".csv",
+              href: csv([["categorie", "vraag", "antwoord"], ...results]),
             },
-            teksten.opnieuw
+            teksten.download
           ),
         ];
       }
@@ -192,38 +816,13 @@
         }, []);
 
         if (location.search) {
-          const searchParams = new URLSearchParams(location.search);
-          const res = Array.from(searchParams)
-            .filter(([q]) => q !== "naam")
-            .map(([q, a]) => [...q.split("."), a]);
-
-          const name = searchParams.get("naam");
-
-          const groupScores = res.reduce((acc, [group, _question, answer]) => {
-            acc[group] = (acc[group] || 0) + Number(answer);
-            return acc;
-          }, []);
-          return h(Results, { name, res, groupScores });
+          return h(Results);
         }
 
-        return [
-          h("h1", null, teksten.titel),
-          h(
-            "form",
-            {
-              onSubmit(e) {
-                // e.preventDefault();
-                console.log(e);
-              },
-            },
-            [h(Form), h("button", { type: "submit" }, teksten.opslaan)]
-          ),
-        ];
-
-        return;
+        return [h("h1", null, teksten.titel), h("form", null, h(Form))];
       }
 
-      render(h(App, { groepen, opties }), document.getElementById("app"));
+      render(h(App), document.getElementById("app"));
     </script>
   </body>
 </html>
