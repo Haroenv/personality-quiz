@@ -167,6 +167,7 @@
       const groepen = [
         {
           naam: "Persoonlijke ontwikkeling",
+          naam_kind: "Mijn plannetjes",
           uitleg:
             "Hoe leer ik dingen? Leren doe je zowel op als buiten de school, van volwassenen of andere kinderen.",
           vragen: [
@@ -202,6 +203,7 @@
         },
         {
           naam: "Zelfbepaling",
+          naam_kind: "Mijn keuzes",
           uitleg:
             "Maak je je eigen keuzes, krijg je inspraak? Mag je zeggen wat je denkt en mee dingen beslissen, zowel thuis als op school? Wordt er naar jouw mening geluisterd?",
           vragen: [
@@ -236,52 +238,8 @@
           ],
         },
         {
-          naam: "Sociale inclusie",
-          uitleg: "Erbij horen, jezelf kunnen zijn en niet uitgesloten worden.",
-          vragen: [
-            {
-              vraag:
-                "De jeugdbeweging, muziekschool, sportclub, speeltuin, … waar ik naar toe ga heb ik mee gekozen.",
-              opties: [
-                "nee",
-                "Ik mag kiezen tussen een paar dingen.",
-                "Ik mag bijna altijd mee kiezen.",
-                "ja",
-              ],
-            },
-            {
-              vraag:
-                "Ik leer iets aan anderen: goocheltrucjes, dansjes, liedjes, spelletjes, …",
-              opties: ["nooit", "soms", "af en toe", "heel vaak"],
-            },
-            {
-              vraag: "Ik help graag klasgenootjes, vrienden, thuis …",
-              opties: ["nooit", "soms", "af en toe", "heel vaak"],
-            },
-            {
-              vraag:
-                "Ik vraag hulp aan volwassenen en leeftijdsgenoten wanneer iets niet lukt.",
-              opties: ["nooit", "soms", "af en toe", "heel vaak"],
-            },
-            {
-              vraag:
-                "Ik ken mensen in mijn buurt. Bv. ik maak een praatje met de buren, in de winkel kennen ze mij, op straat zie ik mensen die ik ken, …",
-              opties: [
-                "Ik ken bijna niemand in de buurt.",
-                "Ik ken enkele mensen uit de buurt, soms maken we een praatje.",
-                "Regelmatig maak ik een praatje met iemand uit de buurt.",
-                "Iedereen kent mij in de buurt.",
-              ],
-            },
-          ],
-          antwoorden: [
-            "Ik ken veel andere kinderen en grote mensen, zowel in de school als er buiten. Ik help hen en zij helpen mij. Samen staan we sterk. ",
-            "In mijn buurt en op school ken in enkele mensen. Soms help ik hen en helpen zij mij, vaak ook pak ik de dingen alleen aan. Ik praat met mensen die ik ken via mijn ouders of via de school.",
-            "Ik ben wat op mezelf en pak de dingen alleen aan. Heel veel mensen ken ik niet en ben wat onzichtbaar. ",
-          ],
-        },
-        {
           naam: "Interpersoonlijke relaties",
+          naam_kind: "Ik en de ander",
           uitleg:
             "We leven niet alleen. Je wordt omringd door je familie, vrienden, klasgenootjes, … Er zijn mensen die je beter of minder goed kent, mensen die jou helpen, mensen waar je graag bij bent, … ",
           vragen: [
@@ -327,7 +285,54 @@
           ],
         },
         {
+          naam: "Sociale inclusie",
+          naam_kind: "Mijn plaats in de wereld",
+          uitleg: "Erbij horen, jezelf kunnen zijn en niet uitgesloten worden.",
+          vragen: [
+            {
+              vraag:
+                "De jeugdbeweging, muziekschool, sportclub, speeltuin, … waar ik naar toe ga heb ik mee gekozen.",
+              opties: [
+                "nee",
+                "Ik mag kiezen tussen een paar dingen.",
+                "Ik mag bijna altijd mee kiezen.",
+                "ja",
+              ],
+            },
+            {
+              vraag:
+                "Ik leer iets aan anderen: goocheltrucjes, dansjes, liedjes, spelletjes, …",
+              opties: ["nooit", "soms", "af en toe", "heel vaak"],
+            },
+            {
+              vraag: "Ik help graag klasgenootjes, vrienden, thuis …",
+              opties: ["nooit", "soms", "af en toe", "heel vaak"],
+            },
+            {
+              vraag:
+                "Ik vraag hulp aan volwassenen en leeftijdsgenoten wanneer iets niet lukt.",
+              opties: ["nooit", "soms", "af en toe", "heel vaak"],
+            },
+            {
+              vraag:
+                "Ik ken mensen in mijn buurt. Bv. ik maak een praatje met de buren, in de winkel kennen ze mij, op straat zie ik mensen die ik ken, …",
+              opties: [
+                "Ik ken bijna niemand in de buurt.",
+                "Ik ken enkele mensen uit de buurt, soms maken we een praatje.",
+                "Regelmatig maak ik een praatje met iemand uit de buurt.",
+                "Iedereen kent mij in de buurt.",
+              ],
+            },
+          ],
+          antwoorden: [
+            "Ik ken veel andere kinderen en grote mensen, zowel in de school als er buiten. Ik help hen en zij helpen mij. Samen staan we sterk. ",
+            "In mijn buurt en op school ken in enkele mensen. Soms help ik hen en helpen zij mij, vaak ook pak ik de dingen alleen aan. Ik praat met mensen die ik ken via mijn ouders of via de school.",
+            "Ik ben wat op mezelf en pak de dingen alleen aan. Heel veel mensen ken ik niet en ben wat onzichtbaar. ",
+          ],
+        },
+        {
           naam: "Rechten",
+          naam_kind: "Mijn rechten",
           uitleg:
             "Regels en afspraken zorgen ervoor dat je goed kunt leven, dat je bescherming krijgt en dat je kan zeggen wat je denkt.",
           vragen: [
@@ -364,99 +369,8 @@
           ],
         },
         {
-          naam: "Fysiek welbevinden",
-          uitleg:
-            "Je gezondheid, wat je eet en drinkt, verzorging wanneer je ziek bent of pijn hebt en ontspanning.",
-          vragen: [
-            {
-              vraag:
-                "Als ik pijn heb of ziek ben dan wordt er voor mij gezorgd. Wanneer ik een bril, beugel, steunzolen, … nodig heb dan krijg ik dat.",
-              opties: ["nooit", "soms", "meestal", "altijd"],
-            },
-            {
-              vraag:
-                "Ik eet vers gemaakte maaltijden, fruit en groenten, ik drink vaak water en eet maar af en toe snoep, koekjes en taart.",
-              opties: ["nooit", "soms", "meestal", "bijna altijd"],
-            },
-            {
-              vraag: "Ik ben graag actief bezig.",
-              opties: ["nooit", "soms", "meestal", "altijd"],
-            },
-            {
-              vraag:
-                "Ik beweeg vaak (wandelen, zwemmen, fietsen, lopen, dansen, voetballen, …).",
-              opties: [
-                "weinig (1 of 2 keer per week)",
-                "af en toe (een keer op een dag)",
-                "regelmatig (enkele keer op een dag)",
-                "vaak (meerdere keren op een dag)",
-              ],
-            },
-            {
-              vraag: "Hoe voel ik mij als ik ’s morgens opsta?",
-              opties: [
-                "Ik voel me bijna elke ochtend heel moe.",
-                "Ik voel me vaak een beetje moe.",
-                "Ik ben meestal klaarwakker.",
-                "Ik ben altijd klaarwakker.",
-              ],
-            },
-          ],
-          antwoorden: [
-            "Ik ben een echte sporter. Ik beweeg graag en veel. Zonder dat weet ik niet wat ik zou doen. Ik word vaak vroeg wakker en spring uit mijn bed klaar om aan de dag te beginnen.",
-            "Ik beweeg af en toe, maar speel ook graag binnen. Soms wil ik wel meer sporten of buiten spelen, dat lukt niet altijd.  Er zijn een paar soorten fruit en groenten die ik wel lust, maar geef mij maar een pizza, frietjes of snoep.",
-            "Oei… Echt gezond leef ik niet. Zelf kan ik daar niet zo veel aan doen. Snoep, chips, frietjes en frisdrank zijn nu eenmaal zooooo lekker. Bewegen doe ik niet zo vaak, ik zit liever binnen te spelen. Op school ben ik vaak moe en wou dat ik wat langer in mijn bed kon liggen.",
-          ],
-        },
-        {
-          naam: "Materieel welbevinden",
-          uitleg:
-            "Heb jij alles wat je nodig hebt: eten, kleren, boeken, wat speelgoed, een bed, een plaats in huis,  …?  Heb je wat eigen geld  en kun je kiezen wat je er mee doet?",
-          vragen: [
-            {
-              vraag:
-                "Ik heb een plekje in huis dat alleen van mij is: een speelhoek, bureau, slaapkamer, …",
-              opties: [
-                "nee",
-                "We hebben voor alle kinderen samen een plekje in huis.",
-                "In huis is er wel plaats maar niet voor mij alleen.",
-                "ja",
-              ],
-            },
-            {
-              vraag:
-                "Ik heb dingen die alleen van jou zijn: bv. een bal, auto’s, een pop, boeken, …",
-              opties: [
-                "nee",
-                "Thuis hebben we dingen die van iedereen zijn.",
-                "Thuis hebben we dingen die van iedereen zijn.",
-                "ja",
-              ],
-            },
-            {
-              vraag:
-                "Wij doen samen leuke dingen: bv. bioscoop, museum, restaurant, pretpark, uitstap, …",
-              opties: ["nooit", "bijna nooit", "af en toe", "vaak"],
-            },
-            {
-              vraag:
-                "Thuis krijg ik wat ik nodig heb: eten, drinken, kleren, schoenen, …",
-              opties: ["nooit", "soms", "meestal", "altijd"],
-            },
-            {
-              vraag:
-                "Ik heb wat eigen geld die ik kan sparen of waarmee ik iets kan kopen (zakgeld, omslag voor mijn verjaardag, …).",
-              opties: ["nooit", "soms", "meestal", "altijd"],
-            },
-          ],
-          antwoorden: [
-            "Thuis heb ik alles wat ik nodig heb (bv. speelgoed, een computer, gezelschapsspelletjes, boeken, kleren, …). Soms gaan we samen iets leuk doen, dat hoeft niet altijd veel geld te kosten. Als ik iets écht wil kan ik er voor sparen of soms krijg ik het gewoon voor mijn verjaardag of zomaar. Ik voel me vaak een gelukzak.",
-            "Meestal heb ik wat ik nodig heb of wat ik leuk vind. Natuurlijk kun ik niet alles hebben wat ik wil. Soms wou ik kunnen toveren om toch net dat te hebben waar ik écht zin in heb: nieuwe schoenen, een computer, samen ergens heengaan, …",
-            "Soms krijg ik niet wat ik wil of wat ik nodig heb omdat het te duur is, omdat mijn ouders het te druk hebben, … Dat vind ik wel jammer.",
-          ],
-        },
-        {
           naam: "Emotioneel welbevinden",
+          naam_kind: "Mijn gevoel",
           uitleg: "Hoe voel je je? Wat denk jij over jezelf?",
           vragen: [
             {
@@ -504,6 +418,100 @@
             "Ik voel me meestal goed en ik kan mezelf zijn. Veel mensen (bv. mijn ouders, mijn vrienden, de juf, …  ) zien mij graag en ik zie hen ook graag. Dit tonen we aan elkaar.",
             "Ik voel mij best OK. De ene keer gaat het al wat beter dan de andere keer. Waar ik echt goed in ben weet ik nog niet zo zeker. Als ik iets doe of iets maak (op school, van mijn ouders, van vrienden) krijg ik wel eens complementjes, soms weet ik niet of die wel gemeend zijn.",
             "Mijn gevoelens zijn iets van mezelf, daar loop ik niet mee te koop. Ik probeer dingen te doen zodat anderen (bv. mijn ouders, mijn vrienden, de juf, …  ) mij leuk vinden. Wanneer ik iemand graag heb dan weet ik niet goed hoe je dat kunt tonen. Ik ben soms wat onzeker. Mensen zeggen mij waar ik niet zo goed in ben, ik zou het leuk vinden af en toe te horen waar ik goed in ben.",
+          ],
+        },
+        {
+          naam: "Fysiek welbevinden",
+          naam_kind: "Mijn lijf",
+          uitleg:
+            "Je gezondheid, wat je eet en drinkt, verzorging wanneer je ziek bent of pijn hebt en ontspanning.",
+          vragen: [
+            {
+              vraag:
+                "Als ik pijn heb of ziek ben dan wordt er voor mij gezorgd. Wanneer ik een bril, beugel, steunzolen, … nodig heb dan krijg ik dat.",
+              opties: ["nooit", "soms", "meestal", "altijd"],
+            },
+            {
+              vraag:
+                "Ik eet vers gemaakte maaltijden, fruit en groenten, ik drink vaak water en eet maar af en toe snoep, koekjes en taart.",
+              opties: ["nooit", "soms", "meestal", "bijna altijd"],
+            },
+            {
+              vraag: "Ik ben graag actief bezig.",
+              opties: ["nooit", "soms", "meestal", "altijd"],
+            },
+            {
+              vraag:
+                "Ik beweeg vaak (wandelen, zwemmen, fietsen, lopen, dansen, voetballen, …).",
+              opties: [
+                "weinig (1 of 2 keer per week)",
+                "af en toe (een keer op een dag)",
+                "regelmatig (enkele keer op een dag)",
+                "vaak (meerdere keren op een dag)",
+              ],
+            },
+            {
+              vraag: "Hoe voel ik mij als ik ’s morgens opsta?",
+              opties: [
+                "Ik voel me bijna elke ochtend heel moe.",
+                "Ik voel me vaak een beetje moe.",
+                "Ik ben meestal klaarwakker.",
+                "Ik ben altijd klaarwakker.",
+              ],
+            },
+          ],
+          antwoorden: [
+            "Ik ben een echte sporter. Ik beweeg graag en veel. Zonder dat weet ik niet wat ik zou doen. Ik word vaak vroeg wakker en spring uit mijn bed klaar om aan de dag te beginnen.",
+            "Ik beweeg af en toe, maar speel ook graag binnen. Soms wil ik wel meer sporten of buiten spelen, dat lukt niet altijd.  Er zijn een paar soorten fruit en groenten die ik wel lust, maar geef mij maar een pizza, frietjes of snoep.",
+            "Oei… Echt gezond leef ik niet. Zelf kan ik daar niet zo veel aan doen. Snoep, chips, frietjes en frisdrank zijn nu eenmaal zooooo lekker. Bewegen doe ik niet zo vaak, ik zit liever binnen te spelen. Op school ben ik vaak moe en wou dat ik wat langer in mijn bed kon liggen.",
+          ],
+        },
+        {
+          naam: "Materieel welbevinden",
+          naam_kind: "Dingen rondom mij",
+          uitleg:
+            "Heb jij alles wat je nodig hebt: eten, kleren, boeken, wat speelgoed, een bed, een plaats in huis,  …?  Heb je wat eigen geld  en kun je kiezen wat je er mee doet?",
+          vragen: [
+            {
+              vraag:
+                "Ik heb een plekje in huis dat alleen van mij is: een speelhoek, bureau, slaapkamer, …",
+              opties: [
+                "nee",
+                "We hebben voor alle kinderen samen een plekje in huis.",
+                "In huis is er wel plaats maar niet voor mij alleen.",
+                "ja",
+              ],
+            },
+            {
+              vraag:
+                "Ik heb dingen die alleen van jou zijn: bv. een bal, auto’s, een pop, boeken, …",
+              opties: [
+                "nee",
+                "Thuis hebben we dingen die van iedereen zijn.",
+                "Thuis hebben we dingen die van iedereen zijn.",
+                "ja",
+              ],
+            },
+            {
+              vraag:
+                "Wij doen samen leuke dingen: bv. bioscoop, museum, restaurant, pretpark, uitstap, …",
+              opties: ["nooit", "bijna nooit", "af en toe", "vaak"],
+            },
+            {
+              vraag:
+                "Thuis krijg ik wat ik nodig heb: eten, drinken, kleren, schoenen, …",
+              opties: ["nooit", "soms", "meestal", "altijd"],
+            },
+            {
+              vraag:
+                "Ik heb wat eigen geld die ik kan sparen of waarmee ik iets kan kopen (zakgeld, omslag voor mijn verjaardag, …).",
+              opties: ["nooit", "soms", "meestal", "altijd"],
+            },
+          ],
+          antwoorden: [
+            "Thuis heb ik alles wat ik nodig heb (bv. speelgoed, een computer, gezelschapsspelletjes, boeken, kleren, …). Soms gaan we samen iets leuk doen, dat hoeft niet altijd veel geld te kosten. Als ik iets écht wil kan ik er voor sparen of soms krijg ik het gewoon voor mijn verjaardag of zomaar. Ik voel me vaak een gelukzak.",
+            "Meestal heb ik wat ik nodig heb of wat ik leuk vind. Natuurlijk kun ik niet alles hebben wat ik wil. Soms wou ik kunnen toveren om toch net dat te hebben waar ik écht zin in heb: nieuwe schoenen, een computer, samen ergens heengaan, …",
+            "Soms krijg ik niet wat ik wil of wat ik nodig heb omdat het te duur is, omdat mijn ouders het te druk hebben, … Dat vind ik wel jammer.",
           ],
         },
       ];
@@ -583,13 +591,14 @@
         );
       }
 
-      function PersistedStep({ groupIndex, value, onChange }) {
+      function QuestionGroup({ groupIndex, value, onChange }) {
         const group = groepen[groupIndex];
 
         return h(
-          "fieldset",
-          { style: { "--color": branding[group.naam].color } },
-          [
+          Fragment,
+          null,
+          h("h1", null, group.naam_kind),
+          h("fieldset", { style: { "--color": branding[group.naam].color } }, [
             h("legend", { class: "visuallyhidden" }, group.naam),
             h(
               "svg",
@@ -623,12 +632,13 @@
                 )
               ),
             ]),
-          ]
+          ])
         );
       }
 
       function Intro({ value, onChange }) {
         return [
+          h("h1", null, teksten.titel),
           h("p", null, teksten.subtitel),
           h("p", null, teksten.intro),
           h("label", null, [
@@ -661,54 +671,61 @@
           ]);
         }
 
-        return ["first", ...groepen, "last"].map((group, groupIndex, arr) => {
-          if (group === "first") {
+        return h(
+          "form",
+          null,
+          ["first", ...groepen, "last"].map((group, groupIndex, arr) => {
+            if (group === "first") {
+              return [
+                h(Step, {
+                  hidden: groupIndex !== index,
+                  onHide() {
+                    setIndex((i) => i + 1);
+                  },
+                  child: Intro,
+                  onChildStateChange(newState) {
+                    setChildState(newState, groupIndex);
+                  },
+                  childState: childState[groupIndex],
+                }),
+              ];
+            }
+
+            if (group === "last") {
+              return h(
+                "div",
+                { style: { display: groupIndex !== index ? "none" : "block" } },
+                [
+                  h("h1", null, teksten.titel),
+                  h("p", null, teksten.subtitel),
+                  h("p", null, teksten.outro),
+                  h(
+                    "button",
+                    {
+                      type: "submit",
+                    },
+                    teksten.opslaan
+                  ),
+                ]
+              );
+            }
+
             return h(Step, {
               hidden: groupIndex !== index,
               onHide() {
-                setIndex((i) => i + 1);
+                setIndex((i) => 1 + i);
               },
-              child: Intro,
+              progress: groupIndex,
+              max: arr.length,
+              childProps: { groupIndex: groupIndex - 1 },
+              child: QuestionGroup,
               onChildStateChange(newState) {
                 setChildState(newState, groupIndex);
               },
               childState: childState[groupIndex],
             });
-          }
-
-          if (group === "last") {
-            return h(
-              "div",
-              { style: { display: groupIndex !== index ? "none" : "block" } },
-              [
-                h("p", null, teksten.subtitel),
-                h("p", null, teksten.outro),
-                h(
-                  "button",
-                  {
-                    type: "submit",
-                  },
-                  teksten.opslaan
-                ),
-              ]
-            );
-          }
-
-          return h(Step, {
-            hidden: groupIndex !== index,
-            onHide() {
-              setIndex((i) => 1 + i);
-            },
-            progress: groupIndex,
-            max: arr.length,
-            childProps: { groupIndex: groupIndex - 1 },
-            child: PersistedStep,
-            onChildStateChange(newState) {
-              setChildState(newState, groupIndex);
-            },
-            childState: childState[groupIndex],
-          });
-        });
+          })
+        );
       }
 
       function csv(arr) {
@@ -1033,7 +1050,7 @@
           return h(Results);
         }
 
-        return [h("h1", null, teksten.titel), h("form", null, h(Form))];
+        return h(Form);
       }
 
       render(h(App), document.getElementById("app"));
