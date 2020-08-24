@@ -841,11 +841,11 @@
             "svg",
             {
               viewBox: [0, 0, 2 * width, 2 * height].join(" "),
-              width: "30em",
-              height: "30em",
+              width: "25em",
+              height: "25em",
               style: {
-                width: "30em",
-                height: "30em",
+                width: "25em",
+                height: "25em",
                 display: "block",
                 margin: "0 auto",
               },
@@ -957,7 +957,7 @@
             height: 100,
             numLevels: 3,
           }),
-
+          antwoorden.map((antwoord) => h("p", null, antwoord)),
           groepen.map((group, groupIndex) =>
             h("section", { style: { "--color": branding[group.naam].color } }, [
               h(
