@@ -882,12 +882,12 @@
         });
 
         useEffect(() => {
-          // if (printmode) {
-          //   html2pdf()
-          //     .set({ html2canvas: { scale: 2 } })
-          //     .from(document.body)
-          //     .save(teksten.titel + " " + name);
-          // }
+          if (printmode) {
+            html2pdf()
+              .set({ html2canvas: { scale: 2 } })
+              .from(document.body)
+              .save(teksten.titel + " " + name);
+          }
         }, [printmode]);
 
         if (!printmode) {
