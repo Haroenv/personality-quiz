@@ -900,6 +900,11 @@
           []
         );
 
+        // change order for text size
+        const tmp = groupScores[1];
+        groupScores[1] = groupScores[2];
+        groupScores[2] = tmp;
+
         const antwoorden = groepen.map((group, i) => {
           const index = Math.round(
             (groupScores[i].value * (group.antwoorden.length - 1)) /
