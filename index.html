@@ -30,11 +30,11 @@
         grid-template-columns: repeat(4, 1fr);
       }
       progress,
-      button[type="submit"] {
+      button {
         display: block;
         margin: auto;
       }
-      button[type="submit"] {
+      button {
         margin: 1em auto;
         font: inherit;
         border: 1px solid currentColor;
@@ -42,11 +42,14 @@
         background: none;
       }
       .image {
-        height: 2em;
-        width: 2em;
         background: var(--color);
         padding: 0.2em;
+        margin: 0.2em;
         border-radius: 100%;
+      }
+      .corner {
+        height: 2em;
+        width: 2em;
         position: absolute;
         top: -1.2em;
         left: -1.2em;
@@ -153,7 +156,8 @@
           "Goed gedaan! Je bent helemaal klaar. Druk op de knop: ‘Bekijk je resultaat’ en leer meer over jezelf. Klopt het plaatje? Bespreek samen met je juf of meester waar je jezelf herkent en waar je jezelf net iets anders ziet",
         opslaan: "bekijk je resultaat",
         resultaten: "Resultaten",
-        resultaten_uitleg: "Vraag aan de meester of juf waar je het document opslaat.",
+        resultaten_uitleg:
+          "Vraag aan de meester of juf waar je het document opslaat.",
         resultaten_uitleg_leerkracht:
           "Deze resultaten geven een breed beeld van de leerling. Onder de spin vind je per domein een korte analyse en de individuele antwoorden van het kind. Dit kan je helpen het beeld te verfijnen. Meer informatie rond het 'waarom-hoe-wat' vind je in de poster 'brede beeldvorming' LINK.",
         download_pdf: "sla de resultaten op als pdf",
@@ -202,7 +206,8 @@
             "Maak je je eigen keuzes, krijg je inspraak? Mag je zeggen wat je denkt en mee dingen beslissen, zowel thuis als op school? Wordt er naar jouw mening geluisterd?",
           vragen: [
             {
-              vraag: "Als ik iets niet wil of als ik niet tevreden bent over iets dan luisteren anderen naar mij?",
+              vraag:
+                "Als ik iets niet wil of als ik niet tevreden bent over iets dan luisteren anderen naar mij?",
               opties: ["bijna nooit", "af en toe", "vaak", "altijd"],
             },
             {
@@ -211,17 +216,16 @@
               opties: ["bijna nooit", "af en toe", "vaak", "altijd"],
             },
             {
-              vraag: "Ik kan iets zelf kiezen. Bv. wat ik wil voor mijn verjaardag, wat ik op de boterham wil, welke kleren ik aan wil, waar ik heen wil gaan, …",
+              vraag:
+                "Ik kan iets zelf kiezen. Bv. wat ik wil voor mijn verjaardag, wat ik op de boterham wil, welke kleren ik aan wil, waar ik heen wil gaan, …",
               opties: ["bijna nooit", "af en toe", "vaak", "altijd"],
             },
             {
-              vraag:
-                "Ik bepaal mee wat ik ga leren.",
+              vraag: "Ik bepaal mee wat ik ga leren.",
               opties: ["bijna nooit", "af en toe", "vaak", "altijd"],
             },
             {
-              vraag:
-                "Op school weet ik wat we gaan leren. ",
+              vraag: "Op school weet ik wat we gaan leren. ",
               opties: ["bijna nooit", "af en toe", "vaak", "altijd"],
             },
           ],
@@ -233,12 +237,17 @@
         },
         {
           naam: "Sociale inclusie",
-          uitleg:
-            "Erbij horen, jezelf kunnen zijn en niet uitgesloten worden.",
+          uitleg: "Erbij horen, jezelf kunnen zijn en niet uitgesloten worden.",
           vragen: [
             {
-              vraag: "De jeugdbeweging, muziekschool, sportclub, speeltuin, … waar ik naar toe ga heb ik mee gekozen.",
-              opties: ["nee", "Ik mag kiezen tussen een paar dingen.", "Ik mag bijna altijd mee kiezen.", "ja"],
+              vraag:
+                "De jeugdbeweging, muziekschool, sportclub, speeltuin, … waar ik naar toe ga heb ik mee gekozen.",
+              opties: [
+                "nee",
+                "Ik mag kiezen tussen een paar dingen.",
+                "Ik mag bijna altijd mee kiezen.",
+                "ja",
+              ],
             },
             {
               vraag:
@@ -257,7 +266,12 @@
             {
               vraag:
                 "Ik ken mensen in mijn buurt. Bv. ik maak een praatje met de buren, in de winkel kennen ze mij, op straat zie ik mensen die ik ken, …",
-              opties: ["Ik ken bijna niemand in de buurt.", "Ik ken enkele mensen uit de buurt, soms maken we een praatje.", "Regelmatig maak ik een praatje met iemand uit de buurt.", "Iedereen kent mij in de buurt."],
+              opties: [
+                "Ik ken bijna niemand in de buurt.",
+                "Ik ken enkele mensen uit de buurt, soms maken we een praatje.",
+                "Regelmatig maak ik een praatje met iemand uit de buurt.",
+                "Iedereen kent mij in de buurt.",
+              ],
             },
           ],
           antwoorden: [
@@ -272,8 +286,14 @@
             "We leven niet alleen. Je wordt omringd door je familie, vrienden, klasgenootjes, … Er zijn mensen die je beter of minder goed kent, mensen die jou helpen, mensen waar je graag bij bent, … ",
           vragen: [
             {
-              vraag: "Als ik een geheimpje hebt dan zijn er mensen van wie ik zeker weet dat ze het niet zullen verklappen.",
-              opties: ["weinig (0 of 1)", "een aantal (2 of 3)", "veel (4 of 5)", "heel veel (>6)"],
+              vraag:
+                "Als ik een geheimpje hebt dan zijn er mensen van wie ik zeker weet dat ze het niet zullen verklappen.",
+              opties: [
+                "weinig (0 of 1)",
+                "een aantal (2 of 3)",
+                "veel (4 of 5)",
+                "heel veel (>6)",
+              ],
             },
             {
               vraag:
@@ -281,13 +301,18 @@
               opties: ["bijna nooit", "af en toe", "vaak", "altijd"],
             },
             {
-              vraag: "Ik doe vaak dingen samen met mijn ouders. Bv. tv kijken, eten, spel spelen, wandelen, …",
+              vraag:
+                "Ik doe vaak dingen samen met mijn ouders. Bv. tv kijken, eten, spel spelen, wandelen, …",
               opties: ["bijna nooit", "af en toe", "vaak", "altijd"],
             },
             {
-              vraag:
-                "Ik heb goede vrienden.",
-              opties: ["Ik speel met andere kinderen, een goede vriend heb ik niet.", "Ik heb één goede vriend.", "Ik heb een paar goede vrienden.", "Ik heb veel goede vrienden."],
+              vraag: "Ik heb goede vrienden.",
+              opties: [
+                "Ik speel met andere kinderen, een goede vriend heb ik niet.",
+                "Ik heb één goede vriend.",
+                "Ik heb een paar goede vrienden.",
+                "Ik heb veel goede vrienden.",
+              ],
             },
             {
               vraag:
@@ -307,7 +332,8 @@
             "Regels en afspraken zorgen ervoor dat je goed kunt leven, dat je bescherming krijgt en dat je kan zeggen wat je denkt.",
           vragen: [
             {
-              vraag: "Wanneer iemands iets naar mij doet wat ik oneerlijk vind, probeer ik er iets aan te doen.",
+              vraag:
+                "Wanneer iemands iets naar mij doet wat ik oneerlijk vind, probeer ik er iets aan te doen.",
               opties: ["nooit", "soms", "vaak", "bijna altijd"],
             },
             {
@@ -316,7 +342,8 @@
               opties: ["nooit", "soms", "vaak", "bijna altijd"],
             },
             {
-              vraag: "Ik leer dingen die ik nodig heb om mijn plan te kunnen trekken: winkelen, met geld omgaan, hoe met andere mensen omgaan, hulp vragen, …",
+              vraag:
+                "Ik leer dingen die ik nodig heb om mijn plan te kunnen trekken: winkelen, met geld omgaan, hoe met andere mensen omgaan, hulp vragen, …",
               opties: ["nooit", "soms", "vaak", "bijna altijd"],
             },
             {
@@ -342,7 +369,8 @@
             "Je gezondheid, wat je eet en drinkt, verzorging wanneer je ziek bent of pijn hebt en ontspanning.",
           vragen: [
             {
-              vraag: "Als ik pijn heb of ziek ben dan wordt er voor mij gezorgd. Wanneer ik een bril, beugel, steunzolen, … nodig heb dan krijg ik dat.",
+              vraag:
+                "Als ik pijn heb of ziek ben dan wordt er voor mij gezorgd. Wanneer ik een bril, beugel, steunzolen, … nodig heb dan krijg ik dat.",
               opties: ["nooit", "soms", "meestal", "altijd"],
             },
             {
@@ -357,12 +385,21 @@
             {
               vraag:
                 "Ik beweeg vaak (wandelen, zwemmen, fietsen, lopen, dansen, voetballen, …).",
-              opties: ["weinig (1 of 2 keer per week)", "af en toe (een keer op een dag)", "regelmatig (enkele keer op een dag)", "vaak (meerdere keren op een dag)"],
+              opties: [
+                "weinig (1 of 2 keer per week)",
+                "af en toe (een keer op een dag)",
+                "regelmatig (enkele keer op een dag)",
+                "vaak (meerdere keren op een dag)",
+              ],
             },
             {
-              vraag:
-                "Hoe voel ik mij als ik ’s morgens opsta?",
-              opties: ["Ik voel me bijna elke ochtend heel moe.", "Ik voel me vaak een beetje moe.", "Ik ben meestal klaarwakker.", "Ik ben altijd klaarwakker."],
+              vraag: "Hoe voel ik mij als ik ’s morgens opsta?",
+              opties: [
+                "Ik voel me bijna elke ochtend heel moe.",
+                "Ik voel me vaak een beetje moe.",
+                "Ik ben meestal klaarwakker.",
+                "Ik ben altijd klaarwakker.",
+              ],
             },
           ],
           antwoorden: [
@@ -377,16 +414,28 @@
             "Heb jij alles wat je nodig hebt: eten, kleren, boeken, wat speelgoed, een bed, een plaats in huis,  …?  Heb je wat eigen geld  en kun je kiezen wat je er mee doet?",
           vragen: [
             {
-              vraag: "Ik heb een plekje in huis dat alleen van mij is: een speelhoek, bureau, slaapkamer, …",
-              opties: ["nee", "We hebben voor alle kinderen samen een plekje in huis.", "In huis is er wel plaats maar niet voor mij alleen.", "ja"],
+              vraag:
+                "Ik heb een plekje in huis dat alleen van mij is: een speelhoek, bureau, slaapkamer, …",
+              opties: [
+                "nee",
+                "We hebben voor alle kinderen samen een plekje in huis.",
+                "In huis is er wel plaats maar niet voor mij alleen.",
+                "ja",
+              ],
             },
             {
               vraag:
                 "Ik heb dingen die alleen van jou zijn: bv. een bal, auto’s, een pop, boeken, …",
-              opties: ["nee", "Thuis hebben we dingen die van iedereen zijn.", "Thuis hebben we dingen die van iedereen zijn.", "ja"],
+              opties: [
+                "nee",
+                "Thuis hebben we dingen die van iedereen zijn.",
+                "Thuis hebben we dingen die van iedereen zijn.",
+                "ja",
+              ],
             },
             {
-              vraag: "Wij doen samen leuke dingen: bv. bioscoop, museum, restaurant, pretpark, uitstap, …",
+              vraag:
+                "Wij doen samen leuke dingen: bv. bioscoop, museum, restaurant, pretpark, uitstap, …",
               opties: ["nooit", "bijna nooit", "af en toe", "vaak"],
             },
             {
@@ -408,11 +457,11 @@
         },
         {
           naam: "Emotioneel welbevinden",
-          uitleg:
-            "Hoe voel je je? Wat denk jij over jezelf?",
+          uitleg: "Hoe voel je je? Wat denk jij over jezelf?",
           vragen: [
             {
-              vraag: "Ik vind dat ik goed ben in de dingen die ik doe. Ik ben trots op wat ik doe op school.",
+              vraag:
+                "Ik vind dat ik goed ben in de dingen die ik doe. Ik ben trots op wat ik doe op school.",
               opties: ["nooit", "soms", "meestal", "altijd"],
             },
             {
@@ -421,18 +470,34 @@
               opties: ["nooit", "soms", "meestal", "altijd"],
             },
             {
-              vraag: "Als ik een probleem heb dan zoek ik hulp of ik doe er zelf iets aan.",
-              opties: ["Ik vind het erg moeilijk om een probleem aan te pakken.", "Om problemen op te lossen heb ik hulp nodig.", "Kleine problemen pak ik aan. Grotere problemen pak ik niet aan.", "Wanneer ik een probleem heb pak ik het meteen aan. Als het mij niet lukt zoek ik hulp."],
+              vraag:
+                "Als ik een probleem heb dan zoek ik hulp of ik doe er zelf iets aan.",
+              opties: [
+                "Ik vind het erg moeilijk om een probleem aan te pakken.",
+                "Om problemen op te lossen heb ik hulp nodig.",
+                "Kleine problemen pak ik aan. Grotere problemen pak ik niet aan.",
+                "Wanneer ik een probleem heb pak ik het meteen aan. Als het mij niet lukt zoek ik hulp.",
+              ],
             },
             {
               vraag:
                 "Ik toon aan anderen dat ik hen graag heb, hen graag zie: bv. je ouders, vrienden, broer of zus, juf of meester, …",
-              opties: ["Ik vind niet snel iemand leuk.", "Ik vind het moeilijk om te tonen wanneer ik iemand leuk vind.", "Ik zeg soms dat ik iemand leuk vind.", "Ik zeg regelmatig dat ik iemand leuk vind."],
+              opties: [
+                "Ik vind niet snel iemand leuk.",
+                "Ik vind het moeilijk om te tonen wanneer ik iemand leuk vind.",
+                "Ik zeg soms dat ik iemand leuk vind.",
+                "Ik zeg regelmatig dat ik iemand leuk vind.",
+              ],
             },
             {
               vraag:
                 "Mijn klasgenoten vinden mij leuk, werken graag met mij samen, spelen graag met mij.",
-              opties: ["Niemand vind mij leuk.", "Een paar kinderen vinden mij leuk.", "De meeste klasgenootjes vinden mij leuk.", "Iedereen vindt mij leuk."],
+              opties: [
+                "Niemand vind mij leuk.",
+                "Een paar kinderen vinden mij leuk.",
+                "De meeste klasgenootjes vinden mij leuk.",
+                "Iedereen vindt mij leuk.",
+              ],
             },
           ],
           antwoorden: [
@@ -447,7 +512,7 @@
 
     <script>
       const { h, render, Fragment } = preact;
-      const { useState, useEffect, useReducer, useLayoutEffect } = preactHooks;
+      const { useState, useEffect } = preactHooks;
 
       const branding = {
         "Persoonlijke ontwikkeling": {
@@ -528,7 +593,7 @@
             h("legend", { class: "visuallyhidden" }, group.naam),
             h(
               "svg",
-              { class: "image" },
+              { class: "image corner" },
               h("use", { "xlink:href": "#icon-" + group.naam })
             ),
             h("p", null, group.uitleg),
@@ -817,12 +882,12 @@
         });
 
         useEffect(() => {
-          if (printmode) {
-            html2pdf()
-              .set({ html2canvas: { scale: 2 } })
-              .from(document.body)
-              .save(teksten.titel + " " + name);
-          }
+          // if (printmode) {
+          //   html2pdf()
+          //     .set({ html2canvas: { scale: 2 } })
+          //     .from(document.body)
+          //     .save(teksten.titel + " " + name);
+          // }
         }, [printmode]);
 
         if (!printmode) {
@@ -842,14 +907,14 @@
               },
               teksten.download_pdf
             ),
-            h(
-              "a",
-              {
-                download: "resultaten-" + name + ".csv",
-                href: csv([["categorie", "vraag", "antwoord"], ...results]),
-              },
-              teksten.download_csv
-            ),
+            // h(
+            //   "a",
+            //   {
+            //     download: "resultaten-" + name + ".csv",
+            //     href: csv([["categorie", "vraag", "antwoord"], ...results]),
+            //   },
+            //   teksten.download_csv
+            // ),
           ];
         }
 
@@ -864,9 +929,29 @@
             height: 100,
             numLevels: 3,
           }),
+
           groepen.map((group, groupIndex) =>
-            h("section", null, [
-              h("h2", null, group.naam),
+            h("section", { style: { "--color": branding[group.naam].color } }, [
+              h(
+                "h2",
+                null,
+                h(
+                  "svg",
+                  {
+                    class: "image",
+                    width: "1em",
+                    height: "1em",
+                    style: {
+                      width: "1em",
+                      height: "1em",
+                      verticalAlign: "middle",
+                      marginLeft: 0,
+                    },
+                  },
+                  h("use", { "xlink:href": "#icon-" + group.naam })
+                ),
+                group.naam
+              ),
               h("p", null, antwoorden[groupIndex]),
               h(
                 "table",
@@ -908,7 +993,10 @@
                           "td",
                           {
                             style: {
-                              whiteSpace: "nowrap",
+                              whiteSpace:
+                                option.split(" ").length <= 3
+                                  ? "nowrap"
+                                  : undefined,
                               borderLeft: "1px solid lightgrey",
                               borderTop: "1px solid lightgrey",
                               textAlign: "center",
