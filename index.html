@@ -1006,6 +1006,14 @@
         }
 
         return [
+          h(PbdLogo, {
+            style: {
+              position: "absolute",
+              top: "1em",
+              right: "1em",
+              width: "10em",
+            },
+          }),
           h("h1", null, teksten.titel),
           h("p", null, teksten.subtitel),
           h("p", null, "antwoorden voor: " + name),
