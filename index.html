@@ -196,9 +196,9 @@
             },
           ],
           antwoorden: [
-            "Ik vind het leuk om uitgedaagd te worden en leer graag nieuwe dingen, zowel in de school als daarbuiten. Ik ben nieuwsgierig en hongerig naar nieuwe dingen.",
-            "Ik leer graag iets nieuw wanneer ik daar de nodige tijd en coaching bij krijg. Wanneer mensen in mij geloven gaat dat nog beter.",
             "Nieuwe dingen leren doe ik het liefst met ondersteuning en coaching. Ik krijg graag opdrachten op maat die mij uitdagen.  Voor mij is het heel belangrijk dat mensen zien wat ik kan en in mij geloven.",
+            "Ik leer graag iets nieuw wanneer ik daar de nodige tijd en coaching bij krijg. Wanneer mensen in mij geloven gaat dat nog beter.",
+            "Ik vind het leuk om uitgedaagd te worden en leer graag nieuwe dingen, zowel in de school als daarbuiten. Ik ben nieuwsgierig en hongerig naar nieuwe dingen.",
           ],
         },
         {
@@ -232,9 +232,9 @@
             },
           ],
           antwoorden: [
-            "Kiezen doe ik graag zelf. Wanneer anderen in mijn plaats kiezen vind ik dat soms wat lastig. Ik heb het gevoel dat er naar mij geluisterd wordt.",
-            "Soms maak ik mijn eigen keuzes, soms vind ik het prettig als anderen dat in mijn plaats doen. Ik zou het leuk vinden om mee mijn toekomst te bepalen.",
             "Anderen bepalen de weg en ik volg. Zelf kiezen doe ik niet zo vaak. Ik zou het leuk vinden wanneer er meer naar mij geluisterd wordt.",
+            "Soms maak ik mijn eigen keuzes, soms vind ik het prettig als anderen dat in mijn plaats doen. Ik zou het leuk vinden om mee mijn toekomst te bepalen.",
+            "Kiezen doe ik graag zelf. Wanneer anderen in mijn plaats kiezen vind ik dat soms wat lastig. Ik heb het gevoel dat er naar mij geluisterd wordt.",
           ],
         },
         {
@@ -279,9 +279,9 @@
             },
           ],
           antwoorden: [
-            "Ik heb veel vrienden en voel me zowel door kinderen als door volwassenen graag gezien.",
-            "Ik heb een paar vrienden bij wie ik terecht kan en waar ik samen mee speel. ",
             "Ik ben vaak alleen. Soms vind ik dat prima, soms vind ik dat jammer. Ik weet niet zo goed hoe ik vrienden kan maken.",
+            "Ik heb een paar vrienden bij wie ik terecht kan en waar ik samen mee speel. ",
+            "Ik heb veel vrienden en voel me zowel door kinderen als door volwassenen graag gezien.",
           ],
         },
         {
@@ -325,9 +325,9 @@
             },
           ],
           antwoorden: [
-            "Ik ben wat op mezelf en pak de dingen alleen aan. Heel veel mensen ken ik niet. Ik ben wat onzichtbaar.",
-            "In mijn buurt en op school ken in enkele mensen. Soms help ik hen en helpen zij mij, vaak ook pak ik de dingen alleen aan. Ik praat met mensen die ik ken via mijn ouders of via de school.",
             "Ik ken veel andere kinderen en grote mensen, zowel in de school als er buiten. Ik help hen en zij helpen mij. Samen staan we sterk. ",
+            "In mijn buurt en op school ken in enkele mensen. Soms help ik hen en helpen zij mij, vaak ook pak ik de dingen alleen aan. Ik praat met mensen die ik ken via mijn ouders of via de school.",
+            "Ik ben wat op mezelf en pak de dingen alleen aan. Heel veel mensen ken ik niet. Ik ben wat onzichtbaar.",
           ],
         },
         {
@@ -363,9 +363,9 @@
             },
           ],
           antwoorden: [
-            "Veel rechten heb ik als kind niet. Ik doe vooral wat de anderen mij zeggen. Als ik een fout maak voel ik mij daar niet goed bij. Kinderen hebben grote mensen nodig om voor ons te zorgen en ons te vertellen wat wel en niet mag. Als iets oneerlijk is, word ik soms boos en dan krijg ik wel eens straf, maar zo leer ik wat wel en niet mag.",
-            "Kinderen hebben rechten, dat weet ik. Soms wordt er naar mijn mening gevraagd, uiteindelijk doen de grote mensen wat het beste voor ons is.  Meestal snap ik dat, soms vind ik dat stom en wou ik dat er echt naar ons geluisterd wordt.",
             "Ik kom op voor mijn rechten. Wanneer ik iets zie wat oneerlijk is dan zeg ik daar iets van. Ik weet dat fouten maken een stap zijn in iets nieuw leren. Er wordt naar mijn mening geluisterd.",
+            "Kinderen hebben rechten, dat weet ik. Soms wordt er naar mijn mening gevraagd, uiteindelijk doen de grote mensen wat het beste voor ons is.  Meestal snap ik dat, soms vind ik dat stom en wou ik dat er echt naar ons geluisterd wordt.",
+            "Veel rechten heb ik als kind niet. Ik doe vooral wat de anderen mij zeggen. Als ik een fout maak voel ik mij daar niet goed bij. Kinderen hebben grote mensen nodig om voor ons te zorgen en ons te vertellen wat wel en niet mag. Als iets oneerlijk is, word ik soms boos en dan krijg ik wel eens straf, maar zo leer ik wat wel en niet mag.",
           ],
         },
         {
@@ -954,19 +954,19 @@
           []
         );
 
-        // change order for text size
-        const tmp = groupScores[1];
-        groupScores[1] = groupScores[2];
-        groupScores[2] = tmp;
-
         const antwoorden = groepen.map((group, i) => {
           const index = Math.round(
             (groupScores[i].value * (group.antwoorden.length - 1)) /
-              group.vragen.reduce((acc, { opties }) => acc + opties.length, 0)
+              groupScores[i].max
           );
 
           return group.antwoorden[index];
         });
+
+        // change order for text size
+        const tmp = groupScores[1];
+        groupScores[1] = groupScores[2];
+        groupScores[2] = tmp;
 
         useEffect(() => {
           if (printmode) {
